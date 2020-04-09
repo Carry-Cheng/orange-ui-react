@@ -2,7 +2,7 @@
   "name": "orange-ui-react",
   "version": "1.0.0",
   "description": "It's a react ui base on mobile. used by myself.",
-  "main": "index.js",
+  "main": "lib/index.ts",
   "repository": {
     "url": "https://github.com/Carry-Cheng/orange-ui-react.git",
     "type": "git"
@@ -14,11 +14,44 @@
     "email": "1057415350@qq.com"
   },
   "files": [
-    "index.js",
-    "lib/*.js",
-    "bin/*.js"
+    "lib/*.ts",
+    "bin/*.ts"
   ],
   "bin": "orange-ui-cli@react",
   "author": "zhoucheng <1057415350@qq.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "typescript": "~3.7.2"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "amfe-flexible": "^2.2.1",
+    "autoprefixer": "^9.7.6",
+    "postcss-pxtorem": "^5.1.1"
+  }
 }
