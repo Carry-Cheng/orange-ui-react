@@ -7,7 +7,12 @@
     "url": "https://github.com/Carry-Cheng/orange-ui-react.git",
     "type": "git"
   },
-  "keywords": ["react", "typescript", "ui", "react-ui"],
+  "keywords": [
+    "react",
+    "typescript",
+    "ui",
+    "react-ui"
+  ],
   "homepage": "https://github.com/Carry-Cheng/orange-ui-react",
   "bugs": {
     "url": "https://github.com/Carry-Cheng/orange-ui-react/issues",
@@ -21,18 +26,28 @@
   "author": "zhoucheng <1057415350@qq.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/webpack": "^4.41.10",
+    "awesome-typescript-loader": "^5.2.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.2.0",
     "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "typescript": "~3.7.2"
+    "source-map-loader": "^0.2.4",
+    "typescript": "~3.7.2",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "build": "react-scripts build"
+    "dev": "webpack-dev-server --open",
+    "build": "webpack"
   },
   "eslintConfig": {
     "extends": "react-app"

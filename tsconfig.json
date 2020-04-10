@@ -1,18 +1,23 @@
 {
   "compilerOptions": {
+    "outDir": "dist",
+    "sourceMap": true,
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    "typeRoots": ["node_modules/@types", "./typing", "./public"],
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
+    "module": "es6",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -20,6 +25,13 @@
     "jsx": "react"
   },
   "include": [
-    "src"
+    "./src",
+    "./lib",
+    "./packages",
+    "./typing",
+    "./public"
+  ],
+  "files": [
+    "./typing/typing.d.ts"
   ]
 }
