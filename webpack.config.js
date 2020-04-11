@@ -8,14 +8,14 @@ module.exports = function (vvv) {
         entry: './src/index.tsx',
         output: {
             filename: '[name].bundle.js',
-            path: path.resolve(__dirname, 'dist')
+            path: path.resolve(__dirname, 'build')
         },
         devtool: "source-map",
         resolve: {
             extensions: [ '.tsx', '.ts', '.js', '.json' ]
         },
         devServer: {
-            contentBase: path.join(__dirname, "dist"),
+            contentBase: path.join(__dirname, "build"),
             compress: true,
             port: 9000
         },
