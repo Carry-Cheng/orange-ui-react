@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
+import App from './views/App'
+
 ReactDOM.render(
   <React.StrictMode>
-    <div>
-        <h1>React</h1>
-    </div>
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 )

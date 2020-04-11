@@ -25,13 +25,25 @@ module.exports = function (vvv) {
             port: 9000
         },
         module: {
+            strictExportPresence: true,
             rules: [
+                // Disable require.ensure as it's not a standard language feature.
+                { parser: { requireEnsure: false } },
+                
                 // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
                 {
                     test: /\.tsx?$/,
                     use: 'awesome-typescript-loader',
                     exclude: /node_modules/
                 },
+
+                // Opt-in support for SASS (using .scss or .sass extensions).
+                {
+                    test: /\.(scss|sass)$/,
+                    use: ['style-loader', 'css-loader', 'sass-loader'],
+                    exclude: /node_modules/
+                },
+
                 // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
                 { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
                 {
@@ -39,6 +51,7 @@ module.exports = function (vvv) {
                     use: 'file-loader',
                     exclude: /node_modules/
                 },
+
             ]
         },
         // When importing a module whose path matches one of the following, just
