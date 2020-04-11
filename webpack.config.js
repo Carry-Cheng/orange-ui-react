@@ -22,6 +22,7 @@ module.exports = function (vvv) {
             contentBase: path.join(__dirname, "build"),
             compress: true,
             noInfo: true,
+            historyApiFallback: true,
             port: 9000
         },
         module: {

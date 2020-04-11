@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Index.scss'
 
 interface Routes {
@@ -31,7 +31,7 @@ export default class Index extends Component<Props, State> {
             this.state.routes.map((route, index) => {
               return (
                 <li key={index}>
-                  <NavLink to={route.path}>{route.name}</NavLink>
+                  <Link to={route.path}>{route.name}</Link>
                 </li>
               )
             })

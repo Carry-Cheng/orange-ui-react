@@ -15,8 +15,8 @@ export default class Button extends Component<Props, State> {
   render() {
     return (
       <div>
-        <h1>Buutton</h1>
-        <OrangeButton></OrangeButton>
+        <h1>Button</h1>
+        <OrangeButton/>
       </div>
     )
   }

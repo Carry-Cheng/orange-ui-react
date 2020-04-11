@@ -1,5 +1,6 @@
 @import '../global.scss';
 
 .orange-button {
+  width: 100%; border: none; border-radius: 4px;
   padding: 10px 10px; outline: none; background: $button-background-color; color: $button-color;
 }
