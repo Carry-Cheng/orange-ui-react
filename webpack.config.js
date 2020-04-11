@@ -1,14 +1,18 @@
 const path = require('path')
+const Webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ENV = require('./utils/path.ts')
+console.info(ENV)
 module.exports = function (vvv) {
-    console.info(vvv)
     return {
         mode: 'development', // "production" | "development" | "none"
         entry: './src/index.tsx',
         output: {
             filename: '[name].bundle.js',
-            path: path.resolve(__dirname, 'build')
+            path: path.resolve(__dirname, 'build'),
+            // library: 'react'
         },
         devtool: "source-map",
         resolve: {
@@ -17,6 +21,7 @@ module.exports = function (vvv) {
         devServer: {
             contentBase: path.join(__dirname, "build"),
             compress: true,
+            noInfo: true,
             port: 9000
         },
         module: {
@@ -45,13 +50,22 @@ module.exports = function (vvv) {
             "react-dom": "ReactDOM"
         },
         plugins: [
+            new Webpack.DefinePlugin(ENV),
             new CleanWebpackPlugin(),
+            // new Webpack.ProvidePlugin({
+            //     "React": "react",
+            //     "ReactDOM": "react-dom"
+            // }),
             new HtmlWebpackPlugin({
                 title: 'Orange UI for React',
                 inject: 'body',
                 template: 'public/index.html',
                 favicon: 'public/favicon.ico'
-            })
+            }),
+            new CopyWebpackPlugin([
+                ENV.REACT,
+                ENV.REACT_DOM
+            ])
         ]
     }
 }
