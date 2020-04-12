@@ -1,10 +1,11 @@
 const path = require('path')
 const Webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ENV = require('../utils/path.ts')
 module.exports = {
   mode: 'production', // "production" | "development" | "none"
-  entry: './packages/index.ts',
+  entry: './packages/Index.ts',
   output: {
     filename: 'index.js',
     path: ENV.NPM_OUTPUT_LIB
@@ -39,6 +40,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new CopyWebpackPlugin([
+      './packages/Index.d.ts'
+    ])
   ]
 }
