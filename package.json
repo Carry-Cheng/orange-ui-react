@@ -2,7 +2,7 @@
   "name": "orange-ui-react",
   "version": "1.0.7",
   "description": "It's a react ui base on mobile. used by myself.",
-  "main": "packages/index.ts",
+  "main": "packages/Index.ts",
   "repository": {
     "url": "https://github.com/Carry-Cheng/orange-ui-react.git",
     "type": "git"
