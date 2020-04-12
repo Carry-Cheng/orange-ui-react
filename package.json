@@ -24,8 +24,8 @@
     "typing",
     "utils",
     "build",
-    "lib/*.ts",
-    "bin/*.ts"
+    "lib",
+    "bin"
   ],
   "bin": "orange-ui-cli@react",
   "author": "zhoucheng <1057415350@qq.com>",
