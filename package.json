@@ -2,7 +2,7 @@
   "name": "orange-ui-react",
   "version": "1.0.3",
   "description": "It's a react ui base on mobile. used by myself.",
-  "main": "lib/index.ts",
+  "main": "lib/index.js",
   "repository": {
     "url": "https://github.com/Carry-Cheng/orange-ui-react.git",
     "type": "git"
@@ -19,6 +19,7 @@
     "email": "1057415350@qq.com"
   },
   "files": [
+    "config",
     "packages",
     "src",
     "typing",
@@ -61,7 +62,8 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --open",
-    "build": "webpack"
+    "build": "webpack",
+    "npm": "webpack --config config/npm.webpack.config.js"
   },
   "eslintConfig": {
     "extends": "react-app"
