@@ -1,1 +1,1 @@
-export { default as Button } from './button/Index'
+export { default as Button } from '../packages/button/Index'
