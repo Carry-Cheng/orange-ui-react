@@ -1,6 +1,6 @@
 {
   "name": "orange-ui-react",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "It's a react ui base on mobile. used by myself.",
   "main": "lib/index.ts",
   "repository": {
@@ -19,6 +19,11 @@
     "email": "1057415350@qq.com"
   },
   "files": [
+    "packages",
+    "src",
+    "typing",
+    "utils",
+    "build",
     "lib/*.ts",
     "bin/*.ts"
   ],
