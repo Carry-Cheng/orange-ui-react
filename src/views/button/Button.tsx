@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import OrangeNavBar from '../../../packages/navbar/index'
-import OrangeButton from '../../../packages/button/index'
+// import { Button, Navbar } from 'orange-ui-react'
 
-// import { Button } from '../../../lib/index'
-// import  '../../../lib/index'
+import Button from '../../../packages/button'
+import Navbar from '../../../packages/navbar'
 
-// console.info(Button)
+
 import './Button.scss'
 interface Props {
   
@@ -17,14 +16,18 @@ interface State {
 export default class ButtonIndex extends Component<Props, State> {
   state = {}
 
+  onClick = () => {
+    console.info('ssssssssss')
+  }
+
   render() {
     return (
       <div className="example-button">
-        <OrangeNavBar>Button example</OrangeNavBar>
+        <Navbar backText="返回">Button example</Navbar>
         <div className="example-button-content">
-          <OrangeButton/>
+          <Button onClick={() => this.onClick()}/>
           <br/>
-          {/* <Button/> */}
+          <Button style={{backgroundColor: '#333333'}} label="sssss" />
         </div>
       </div>
     )

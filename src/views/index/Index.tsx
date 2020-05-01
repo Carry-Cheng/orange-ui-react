@@ -18,7 +18,8 @@ export default class Index extends Component<Props, State> {
 
   state = {
     routes: [
-      { path: '/button', name: 'Button' }
+      { path: '/button', name: 'Button' },
+      { path: '/icon', name: 'Icon' },
     ]
   }
 

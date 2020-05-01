@@ -3964,10 +3964,10 @@ opn@^5.5.0:
   dependencies:
     is-wsl "^1.1.0"
 
-orange-ui-react@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/orange-ui-react/-/orange-ui-react-1.0.9.tgz#209a51f4e68b75bc992e6474b2eb9ddad0624167"
-  integrity sha512-btBvXQYsVhROukB7HP9MZn0ZfLPGnfbnsT02XCiUnsXRGFfVCqEmiseUsUA+898dYXf5HHtOx9lcJUrnxCme2A==
+orange-ui-react@^1.0.10, orange-ui-react@^1.0.9:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/orange-ui-react/-/orange-ui-react-1.0.10.tgz#8dadbea2857eabeb19640d4070927f9a5815f906"
+  integrity sha512-ken0eIhNOieI7tzDupq+b6AMAeLqdWbXsui5P4yc87ZL13fHbOcGN2chmghmz99cWS04snM6fvjcnLGIwy/BIA==
   dependencies:
     "@babel/preset-react" "^7.9.4"
     "@babel/preset-typescript" "^7.9.0"
@@ -3984,6 +3984,7 @@ orange-ui-react@^1.0.9:
     file-loader "^6.0.0"
     html-webpack-plugin "^4.2.0"
     node-sass "^4.13.1"
+    orange-ui-react "^1.0.9"
     postcss-loader "^3.0.0"
     react "^16.13.1"
     react-dom "^16.13.1"

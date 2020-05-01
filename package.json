@@ -2,7 +2,7 @@
   "name": "orange-ui-react",
   "version": "1.0.10",
   "description": "It's a react ui base on mobile. used by myself.",
-  "main": "packages/index.js",
+  "main": "lib/index.js",
   "repository": {
     "url": "https://github.com/Carry-Cheng/orange-ui-react.git",
     "type": "git"
@@ -47,7 +47,7 @@
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.2.0",
     "node-sass": "^4.13.1",
-    "orange-ui-react": "^1.0.9",
+    "orange-ui-react": "^1.0.10",
     "postcss-loader": "^3.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

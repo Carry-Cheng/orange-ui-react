@@ -3,7 +3,11 @@
 .orange-navbar {
   position: fixed;  left: 0; top: 0; z-index: 100; width: 100%; height: 45px; display: flex; justify-content: flex-start; align-items: center;
   background: $navbar-background-color; color: $navbar-color; padding: 0 15px;
-  .orange-navbar-left {font-size: 12px;}
-  .orange-navbar-center {flex: 1; font-size: 12px; display: flex; justify-content: center; align-items: center;}
-  .orange-navbar-right {font-size: 12px;}
+  .orange-navbar-left {
+    display: flex; align-items: center;
+    svg {font-size: 24px;}
+    span {font-size: 14px;}
+  }
+  .orange-navbar-center {flex: 1; font-size: 14px; display: flex; justify-content: center; align-items: center;}
+  .orange-navbar-right {font-size: 14px;}
 }

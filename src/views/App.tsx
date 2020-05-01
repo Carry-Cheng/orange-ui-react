@@ -3,13 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import '../assets/style/reset.scss'
 import Index from './index/Index'
-import ViewButton from './button/Button'
-
-// import moduleName from 'orange-ui-react'
-
-import { Button } from '../../lib/index'
-console.info(Button)
-
+import Button from './button/Button'
+import Icon from './Icon/Icon'
 
 interface Props {
   
@@ -26,10 +21,10 @@ export default class App extends Component<Props, State> {
         <Router keyLength={10}>
           <Switch>
             <Route exact path="/" component={Index}></Route>
-            <Route path="/button" component={ViewButton}></Route>
+            <Route path="/button" component={Button}></Route>
+            <Route path="/icon" component={Icon}></Route>
           </Switch>
         </Router>
-        <Button></Button>
       </div>
     )
   }
