@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Index.scss'
+import './Button.scss'
 
 interface Props {
     label?: string
@@ -8,9 +8,11 @@ interface State {
     
 }
 
-export default class Index extends Component<Props, State> {
+export default class Button extends Component<Props, State> {
 
-    static defaultProps: { label: string }
+    static defaultProps = { 
+        label: 'Button' 
+    }
 
     constructor(props: Props) {
         super(props)
@@ -24,8 +26,4 @@ export default class Index extends Component<Props, State> {
             </button>
         )
     }
-}
-
-Index.defaultProps = {
-    label: 'Button'
 }

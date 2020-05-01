@@ -3,7 +3,11 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import '../assets/style/reset.scss'
 import Index from './index/Index'
-import Button from './button/Button'
+import ViewButton from './button/Button'
+
+import { Button } from '../../lib/index'
+console.info(Button)
+
 
 interface Props {
   
@@ -20,9 +24,10 @@ export default class App extends Component<Props, State> {
         <Router keyLength={10}>
           <Switch>
             <Route exact path="/" component={Index}></Route>
-            <Route path="/button" component={Button}></Route>
+            <Route path="/button" component={ViewButton}></Route>
           </Switch>
         </Router>
+        <Button></Button>
       </div>
     )
   }

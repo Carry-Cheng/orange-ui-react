@@ -4,11 +4,18 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ENV = require('../utils/path.ts')
 module.exports = {
-  mode: 'production', // "production" | "development" | "none"
-  entry: './packages/Index.ts',
+  mode: 'development', // "production" | "development" | "none"
+  // entry: './packages/Index.ts',
+  entry: {
+    button: ['./packages/button/index.js'],
+    navbar: ['./packages/navbar/index.js']
+  },
   output: {
-    filename: 'index.js',
-    path: ENV.NPM_OUTPUT_LIB
+    filename: '[name].js',
+    path: ENV.NPM_OUTPUT_LIB,
+    library: "OrangeUI",
+    libraryTarget: "umd2",
+    // auxiliaryComment: "Test Comment"
   },
   resolve: {
       extensions: [ '.tsx', '.ts', '.js', '.json' ]
@@ -39,10 +46,20 @@ module.exports = {
       }
     ]
   },
+  // When importing a module whose path matches one of the following, just
+  // assume a corresponding global variable exists and use that instead.
+  // This is important because it allows us to avoid bundling all of our
+  // dependencies, which allows browsers to cache those libraries between builds.
+  externals: {
+    "react": "react",
+    "react-dom": "ReactDOM",
+    "react-router-dom": "react-router-dom"
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
-      './packages/Index.d.ts'
+      './packages/index.d.ts',
+      './packages/index.js'
     ])
   ]
 }

@@ -29,7 +29,7 @@
     "./lib",
     "./packages",
     "./typing",
-    "./public"
+    "./public", "packages/index.d.ts"
   ],
   "files": [
     "./typing/typing.d.ts"

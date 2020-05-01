@@ -41,7 +41,7 @@ module.exports = function (vvv) {
                 // Opt-in support for SASS (using .scss or .sass extensions).
                 {
                     test: /\.(scss|sass)$/,
-                    use: ['style-loader', 'css-loader', 'sass-loader'],
+                    use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
                     exclude: /node_modules/
                 },
 
