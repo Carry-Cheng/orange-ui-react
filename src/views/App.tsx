@@ -5,6 +5,8 @@ import '../assets/style/reset.scss'
 import Index from './index/Index'
 import ViewButton from './button/Button'
 
+// import moduleName from 'orange-ui-react'
+
 import { Button } from '../../lib/index'
 console.info(Button)
 
