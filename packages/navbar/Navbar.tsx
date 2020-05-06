@@ -13,7 +13,6 @@ interface State {
   static defaultProps = {
     backText: ''
   }
-
   readonly state: Readonly<State>
   constructor(props: Readonly<Props>) {
     super(props)

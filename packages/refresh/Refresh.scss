@@ -1,0 +1,15 @@
+.orange-refresh {
+    overflow: hidden;
+    .orange-refresh-up {
+        height: 100px;
+        background: red;
+    }
+    .orange-refresh-center {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .orange-refresh-down {
+        height: 100px;
+        background: red;
+    }
+}
