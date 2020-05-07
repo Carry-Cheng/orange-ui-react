@@ -23,9 +23,9 @@ export default class RefreshIndex extends Component<Props, State> {
       <div className="example-refresh">
         <Navbar backText="返回">Refresh example</Navbar>
         <div className="example-refresh-content">
-          <Refresh options={{
-            height: window.innerHeight - 45
-          }}>
+          <Refresh
+            height={window.innerHeight - 45}
+          >
             {
               this.state.array.map((val, index) => (
                 <div className="item-sssss" key={index}>{val}</div>

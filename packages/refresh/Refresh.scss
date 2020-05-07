@@ -1,15 +1,16 @@
 .orange-refresh {
     overflow: hidden;
     .orange-refresh-up {
-        height: 100px;
         background: red;
+        position: relative;
     }
     .orange-refresh-center {
         overflow-y: auto;
         overflow-x: hidden;
+        position: relative;
     }
     .orange-refresh-down {
-        height: 100px;
         background: red;
+        position: relative;
     }
 }
