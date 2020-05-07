@@ -8,7 +8,9 @@ module.exports = {
   // entry: './packages/Index.ts',
   entry: {
     button: ['./packages/button/index.js'],
-    navbar: ['./packages/navbar/index.js']
+    navbar: ['./packages/navbar/index.js'],
+    icon: ['./packages/icon/index.js'],
+    refresh: ['./packages/refresh/index.js'],
   },
   output: {
     filename: '[name].js',
