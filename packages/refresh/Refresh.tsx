@@ -1,52 +1,48 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import './Refresh.scss'
 declare interface RefreshOption {
-  hasMore: boolean
-  limit: {
-    dropDown: boolean
-    pullUp: boolean
-  }
+  onDropDown: Function
+  onPullUp: Function
+  dropDown: boolean
+  pullUp: boolean
   delay: number
+  delayMessage: number
   dropDownLimit: number
   pullUpLimit: number
   height: number
   backgroundColor: string
-  dropDownTextBefore: React.ReactNode
-  dropDownTextAfter: React.ReactNode
-  pullUpTextBefore: React.ReactNode
-  pullUpTextAfter: React.ReactNode
-  noMoreDataText: React.ReactNode
-  findAgainText: React.ReactNode
+  backgroundColorContent: string
+  nullText: string
 }
 interface Props extends RefreshOption {}
 interface State {
-  dropDownStatus: 0 | 1 | 2,
-  pullUpStatus: 0 | 1 | 2
+  dropDownStatus: 0 | 1 | 2 | 3
+  pullUpStatus: 0 | 1 | 2 | 3
+  dropDownMessage: string
+  hasMore: boolean
 }
 export default class Refresh extends Component<Props, State> {
+  readonly refRefreshMessage: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>()
   readonly refRefresh: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>()
   readonly refRefreshUp: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>()
   readonly refRefreshCenter: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>()
   readonly refRefreshDown: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>()
   static defaultProps = {
-    hasMore: true,
-    limit: {
-      dropDown: false,
-      pullUp: false
-    },
+    onDropDown: () => {},
+    onPullUp:  () => {},
+    dropDown: false,
+    pullUp: false,
     delay: 300,
+    delayMessage: 3000,
     dropDownLimit: 90,
     pullUpLimit: 90,
     height: window.innerHeight,
     backgroundColor: 'white',
-    dropDownTextBefore: ``, // <span class="hh-scroll-box-label">↓</span><span class="hh-scroll-box-text">下拉刷新</span>
-    dropDownTextAfter: `<span class="hh-scroll-box-label">↑</span><span class="hh-scroll-box-text">松开加载</span>`,
-    pullUpTextBefore: ``, // <span class="hh-scroll-box-label">↑</span><span class="hh-scroll-box-text">上拉加载更多</span>
-    pullUpTextAfter: `<span class="hh-scroll-box-label"></span><span class="hh-scroll-box-text">加载更多</span>`,
-    noMoreDataText: `<span class="hh-scroll-box-label"></span><span class="hh-scroll-box-text">没有更多数据~~~</span>`,
-    findAgainText: `<span class="hh-scroll-box-label"></span><span class="hh-scroll-box-text" style="color:#E21A1A">又发现了10条新内容</span>`
+    backgroundColorContent: 'white',
+    nullText: '~~~没有更多数据~~~'
   }
   readonly state: Readonly<State>
+  private refreshMessageDOM: HTMLDivElement | undefined
   private refreshUpDOM: HTMLDivElement | undefined
   private refreshCenterDOM: HTMLDivElement | undefined
   private refreshDownDOM: HTMLDivElement | undefined
@@ -55,14 +51,21 @@ export default class Refresh extends Component<Props, State> {
   private move: number = 0
   private currentTime: number = 0
   private sourceMove: number = 0
+  private timestamp: number = 0
+  private timeout: number | undefined = undefined
   constructor(props: Readonly<Props>) {
     super(props)
     this.state = {
       dropDownStatus: 0,
-      pullUpStatus: 0
+      pullUpStatus: 0,
+      dropDownMessage: '',
+      hasMore: true
     }
   }
   componentDidMount() {
+    if (this.refRefreshMessage.current) {
+      this.refreshMessageDOM = this.refRefreshMessage.current
+    }
     if (this.refRefreshUp.current) {
       this.refreshUpDOM = this.refRefreshUp.current
     }
@@ -75,6 +78,12 @@ export default class Refresh extends Component<Props, State> {
   }
   private onTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     if (event.touches.length > 0) {
+      if (this.timeout) {
+        clearTimeout(this.timeout)
+      }
+      if (this.refreshMessageDOM) {
+        this.refreshMessageDOM.style.height = `0px`
+      }
       this.setState({dropDownStatus: 0})
       this.setState({pullUpStatus: 0})
       this.start = event.touches[0].clientY
@@ -94,14 +103,20 @@ export default class Refresh extends Component<Props, State> {
     }
   }
   private onTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    // This synthetic event is reused for performance reasons.
+    // If you're seeing this, you're accessing the method `timeStamp` on a released/nullified synthetic event.
+    // This is a no-op function. If you must keep the original synthetic event around, use event.persist().
+    // See https://fb.me/react-event-pooling for more information.
+    event.persist() 
     this.start = 0
-    this.handleTouchEnd()
+    this.handleTouchEnd(event)
   }
   private onTouchCancel = (event: React.TouchEvent<HTMLDivElement>) => {
-    console.info('event: React.TouchEvent<HTMLDivElement>')
+    this.start = 0
+    this.handleTouchEnd(event)
   }
   private isDropDown() {
-    if (!this.refreshCenterDOM) {
+    if (!this.refreshCenterDOM || !this.props.dropDown) {
       return false
     }
     if (this.move > 0 && this.refreshCenterDOM.scrollTop === 0) {
@@ -110,10 +125,10 @@ export default class Refresh extends Component<Props, State> {
     return false
   }
   private isPullUp() {
-    if (!this.refreshCenterDOM) {
+    if (!this.refreshCenterDOM || !this.props.pullUp || !this.state.hasMore) {
       return false
     }
-    if (this.move < 0 && (this.refreshCenterDOM.scrollTop + this.refreshCenterDOM.clientHeight) === this.refreshCenterDOM.scrollHeight) {
+    if (this.move < 0 && (this.refreshCenterDOM.scrollTop + this.refreshCenterDOM.clientHeight) >= (this.refreshCenterDOM.scrollHeight - 1)) {
       return true
     }
     return false
@@ -142,42 +157,46 @@ export default class Refresh extends Component<Props, State> {
       this.refreshDownDOM.style.transform = `translateY(${this.move}px)`
     }
   }
-  private handleTouchEnd() {
+  private handleTouchEnd(event: React.TouchEvent<HTMLDivElement>) {
     this.currentTime = 0
     this.sourceMove = this.move
     if (this.refreshUpDOM && this.refreshUpDOM.clientHeight > 0 && this.refreshUpDOM.clientHeight !== this.move) {
       this.move = this.refreshUpDOM.clientHeight
-      this.animateDropDown()
+      this.animateDropDown(event)
       return false
     }
-    if (this.refreshDownDOM && this.refreshDownDOM.clientHeight > 0 && this.refreshDownDOM.clientHeight !== this.move) {
+    if (this.refreshDownDOM && this.refreshDownDOM.clientHeight > 0 && this.refreshDownDOM.clientHeight !== this.move && this.state.hasMore) {
       this.move = this.refreshDownDOM.clientHeight
-      this.animatePullUp()
+      this.animatePullUp(event)
       return false
     }
     if (this.isDropDown()) {
-      this.animateDropDown()
+      this.animateDropDown(event)
     }
     if (this.isPullUp()) {
-      this.animatePullUp()
+      this.animatePullUp(event)
     }
   }
-  private animateDropDown() {
+  private animateDropDown(event: React.TouchEvent<HTMLDivElement>) {
     this.animationFrameID = window.requestAnimationFrame(() => {
       if (this.refreshUpDOM) {
         let value = this.linear(this.currentTime, this.sourceMove, -this.sourceMove, this.props.delay)
         if (value <= 0) {
           value = 0
           this.refreshUpDOM.style.height = `${value}px`
+          if (event.timeStamp - this.timestamp > this.props.delay && this.sourceMove > this.props.dropDownLimit) {
+            this.timestamp = event.timeStamp
+            this.props.onDropDown()
+          }
         } else {
           this.refreshUpDOM.style.height = `${value}px`
           this.currentTime += 17
-          this.animateDropDown()
+          this.animateDropDown(event)
         }
       }
     })
   }
-  private animatePullUp() {
+  private animatePullUp(event: React.TouchEvent<HTMLDivElement>) {
     this.animationFrameID = window.requestAnimationFrame(() => {
       if (this.refreshDownDOM && this.refreshCenterDOM) {
         let value = this.linear(this.currentTime, this.sourceMove, Math.abs(this.sourceMove), this.props.delay)
@@ -189,12 +208,16 @@ export default class Refresh extends Component<Props, State> {
           this.refreshCenterDOM.style.transform = `translateY(${value}px)`
           this.refreshDownDOM.style.height = `${Math.abs(value)}px`
           this.refreshDownDOM.style.transform = `translateY(${value}px)`
+          if (event.timeStamp - this.timestamp > 1000 && Math.abs(this.sourceMove) > this.props.pullUpLimit) {
+            this.timestamp = event.timeStamp
+            this.props.onPullUp()
+          }
         } else {
           this.refreshCenterDOM.style.transform = `translateY(${value}px)`
           this.refreshDownDOM.style.height = `${Math.abs(value)}px`
           this.refreshDownDOM.style.transform = `translateY(${value}px)`
           this.currentTime += 17
-          this.animatePullUp()
+          this.animatePullUp(event)
         }
       }
     })
@@ -211,6 +234,46 @@ export default class Refresh extends Component<Props, State> {
     return c*t/d + b
   }
 
+  public setMessage(text: string = 'hi, welcome to Orange UI') {
+    this.setState({dropDownStatus: 3, dropDownMessage: text}, () => {
+        if (this.refreshMessageDOM) {
+          this.refreshMessageDOM.style.height = `40px`
+        }
+        console.info(this.timeout)
+        if (this.timeout) {
+          clearTimeout(this.timeout)
+        }
+        this.timeout = window.setTimeout(() => {
+          if (this.timeout) {
+            clearTimeout(this.timeout)
+          }
+          this.currentTime = 0
+          this.animateMessage()
+        }, this.props.delayMessage)
+    })
+  }
+
+  private animateMessage() {
+    this.animationFrameID = window.requestAnimationFrame(() => {
+      if (this.refreshMessageDOM) {
+        let value = this.linear(this.currentTime, 40, -40, this.props.delay)
+        if (value <= 0) {
+          value = 0
+          this.refreshMessageDOM.style.height = `${value}px`
+          this.setState({dropDownStatus: 3})
+        } else {
+          this.refreshMessageDOM.style.height = `${value}px`
+          this.currentTime += 17
+          this.animateMessage()
+        }
+      }
+    })
+  }
+
+  public setNull() {
+    this.setState({pullUpStatus: 3, hasMore: false})
+  }
+
   render() {
     return (
       <div ref={this.refRefresh} className="orange-refresh" style={{
@@ -218,6 +281,15 @@ export default class Refresh extends Component<Props, State> {
           backgroundColor: this.props.backgroundColor
         }}
       >
+        <div ref={this.refRefreshMessage} className="orange-refresh-message">
+          {
+            this.state.dropDownStatus === 3 ? (
+              <div className="orange-refresh-message-box">
+                <span className="orange-refresh-message-box-text">{this.state.dropDownMessage}</span>
+              </div>
+            ) : ''
+          }
+        </div>
         <div ref={this.refRefreshUp} className="orange-refresh-up">
           {
             this.state.dropDownStatus === 1 ? (
@@ -236,14 +308,19 @@ export default class Refresh extends Component<Props, State> {
         <div
           ref={this.refRefreshCenter}
           className="orange-refresh-center"
-          style={{height: this.props.height + 'px'}}
+          style={{
+            height: this.props.height + 'px',
+            backgroundColor: this.props.backgroundColorContent
+          }}
           onTouchStart={(event: React.TouchEvent<HTMLDivElement>) => this.onTouchStart(event)}
           onTouchMove={(event: React.TouchEvent<HTMLDivElement>) => this.onTouchMove(event)}
           onTouchEnd={(event: React.TouchEvent<HTMLDivElement>) => this.onTouchEnd(event)}
           onTouchCancel={(event: React.TouchEvent<HTMLDivElement>) => this.onTouchCancel(event)}
         >
           {this.props.children}
-
+          {
+            this.state.hasMore === false ? (<div className="orange-refresh-null">{this.props.nullText}</div>) : '' 
+          }
         </div>
         <div ref={this.refRefreshDown} className="orange-refresh-down">
           {

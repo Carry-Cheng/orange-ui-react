@@ -7,10 +7,10 @@ module.exports = {
   mode: 'development', // "production" | "development" | "none"
   // entry: './packages/Index.ts',
   entry: {
-    button: ['./packages/button/index.js'],
-    navbar: ['./packages/navbar/index.js'],
-    icon: ['./packages/icon/index.js'],
-    refresh: ['./packages/refresh/index.js'],
+    button: ['./packages/button'],
+    navbar: ['./packages/navbar'],
+    icon: ['./packages/icon'],
+    refresh: ['./packages/refresh'],
   },
   output: {
     filename: '[name].js',

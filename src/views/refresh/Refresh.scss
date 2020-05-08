@@ -1,6 +1,10 @@
 .example-refresh {
   padding-top: 45px;
   .example-refresh-content {
+    .operate-group {
+      display: flex; padding: 10px;
+      .orange-button  { margin: 0 5px; }
+    }
     .item-sssss {
       width: 100%;
       height: 100px;
