@@ -23,7 +23,10 @@ yarn add orange-ui-react
 
 import { Button } from 'orange-ui-react'
 import { Navbar } from 'orange-ui-react'
+<!-- 目前只有4个小图标 -->
 import { Icon } from 'orange-ui-react'
+<!-- 仿头条下拉刷新以及加载更多 -->
+import { Refresh } from 'orange-ui-react'
 
 ```
 
