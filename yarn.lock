@@ -4032,6 +4032,19 @@ orange-ui-react@^1.1.2:
     webpack-cli "^3.3.11"
     webpack-dev-server "^3.10.3"
 
+orange-ui-react@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/orange-ui-react/-/orange-ui-react-1.1.3.tgz#5ac8f1238820d4817a34d42ea847e39a3d87ba73"
+  integrity sha512-fA6GW2fxCmNZOt2hcQcvB2GpvyQLFMFFSU+iTkLU6La3+S0kfan8uXrYVTy53CS2nx35jFT/SktonJx6lZmfug==
+  dependencies:
+    amfe-flexible "^2.2.1"
+    autoprefixer "^9.7.6"
+    orange-ui-react "^1.1.2"
+    postcss-pxtorem "^5.1.1"
+    react "^16.13.1"
+    react-dom "^16.13.1"
+    react-router-dom "^5.1.2"
+
 original@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/original/-/original-1.0.2.tgz#e442a61cffe1c5fd20a65f3261c26663b303f25f"

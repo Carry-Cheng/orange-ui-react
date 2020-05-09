@@ -34,7 +34,7 @@
   "dependencies": {
     "amfe-flexible": "^2.2.1",
     "autoprefixer": "^9.7.6",
-    "orange-ui-react": "^1.1.2",
+    "orange-ui-react": "^1.1.3",
     "postcss-pxtorem": "^5.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
