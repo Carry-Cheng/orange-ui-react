@@ -115,7 +115,7 @@ export default class Refresh extends Component<Props, State> {
     this.start = 0
     this.handleTouchEnd(event)
   }
-  private isDropDown() {
+  private isDropDown(): boolean {
     if (!this.refreshCenterDOM || !this.props.dropDown) {
       return false
     }
@@ -124,7 +124,7 @@ export default class Refresh extends Component<Props, State> {
     }
     return false
   }
-  private isPullUp() {
+  private isPullUp(): boolean {
     if (!this.refreshCenterDOM || !this.props.pullUp || !this.state.hasMore) {
       return false
     }
@@ -157,7 +157,7 @@ export default class Refresh extends Component<Props, State> {
       this.refreshDownDOM.style.transform = `translateY(${this.move}px)`
     }
   }
-  private handleTouchEnd(event: React.TouchEvent<HTMLDivElement>) {
+  private handleTouchEnd(event: React.TouchEvent<HTMLDivElement>) : boolean {
     this.currentTime = 0
     this.sourceMove = this.move
     if (this.refreshUpDOM && this.refreshUpDOM.clientHeight > 0 && this.refreshUpDOM.clientHeight !== this.move) {
@@ -176,6 +176,7 @@ export default class Refresh extends Component<Props, State> {
     if (this.isPullUp()) {
       this.animatePullUp(event)
     }
+    return true
   }
   private animateDropDown(event: React.TouchEvent<HTMLDivElement>) {
     this.animationFrameID = window.requestAnimationFrame(() => {
@@ -186,6 +187,7 @@ export default class Refresh extends Component<Props, State> {
           this.refreshUpDOM.style.height = `${value}px`
           if (event.timeStamp - this.timestamp > this.props.delay && this.sourceMove > this.props.dropDownLimit) {
             this.timestamp = event.timeStamp
+            this.setState({hasMore: true})
             this.props.onDropDown()
           }
         } else {
@@ -230,7 +232,7 @@ export default class Refresh extends Component<Props, State> {
    * @param c 变量值
    * @param d 持续时间
    */
-  private linear(t: number, b: number, c: number, d: number) {
+  private linear(t: number, b: number, c: number, d: number): number {
     return c*t/d + b
   }
 
