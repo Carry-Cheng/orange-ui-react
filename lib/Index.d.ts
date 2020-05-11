@@ -118,18 +118,18 @@ export declare class Refresh extends React.Component<RefreshProps, RefreshState>
 }
 
 /// exposure
-export interface ExposureProps {
+export declare interface ExposureProps {
     className: string
     onExposure: Function
 }
-export interface ExposureState {}
+export declare interface ExposureState {}
 
-export interface OriginObject {
+export declare interface OriginObject {
     exposureid: number
     top: number
     height: number
 }
-export class Exposure extends Component<ExposureProps, ExposureState> {
+export declare class Exposure extends Component<ExposureProps, ExposureState> {
     static defaultProps: {
         className: string
         onExposure: Function
