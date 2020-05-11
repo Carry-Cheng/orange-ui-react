@@ -139,7 +139,7 @@ export declare class Exposure extends React.Component<ExposureProps, ExposureSta
     private _target: Array<number>
     constructor(props: Readonly<ExposureProps>)
     private init(): void
-    private reset(): void
+    public reset(): void
     private initEvent(): void
     private baseComputed(): void
     private coreComputed(): void
