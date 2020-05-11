@@ -27,6 +27,8 @@ import { Navbar } from 'orange-ui-react'
 import { Icon } from 'orange-ui-react'
 <!-- 仿头条下拉刷新以及加载更多 -->
 import { Refresh } from 'orange-ui-react'
+<!-- 自己业务曝光量统计 -->
+import { Exposure } from 'orange-ui-react'
 
 ```
 
