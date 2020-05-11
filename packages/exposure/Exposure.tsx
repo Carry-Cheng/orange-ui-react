@@ -48,6 +48,22 @@ export default class Exposure extends Component<Props, State> {
             this.reset()
         }, 20)
     }
+    private parentNodeHasScorll(child: HTMLElement | null): null | HTMLElement | undefined {
+        if (!child) {
+            return null
+        } else {
+            if (child.parentNode) {
+                let parentNode = child.parentNode as HTMLElement
+                if (parentNode.scrollHeight > parentNode.clientHeight || parentNode.offsetHeight > parentNode.clientHeight) {
+                    return parentNode
+                } else {
+                    return this.parentNodeHasScorll(parentNode)
+                }
+            } else {
+                return null
+            }
+        }
+    }
     private baseComputed = () => {
         this.origin = []
         let dom = window.document.querySelectorAll<HTMLDivElement>(`.${this.props.className}`)
@@ -62,7 +78,12 @@ export default class Exposure extends Component<Props, State> {
     }
     private coreComputed = () => {
         let target: Array<number> = []
-        this.min = window.scrollY
+        let child = window.document.querySelector<HTMLDivElement>(`.${this.props.className}`)
+        let father = this.parentNodeHasScorll(child)
+        if (!father) {
+            throw Error('not find html element with scroll.')
+        }
+        this.min = father.scrollTop
         this.max = this.min + window.innerHeight
         this.origin.forEach(element => {
             // strict mode, the box in visual area
