@@ -129,7 +129,7 @@ export declare interface OriginObject {
     top: number
     height: number
 }
-export declare class Exposure extends Component<ExposureProps, ExposureState> {
+export declare class Exposure extends React.Component<ExposureProps, ExposureState> {
     readonly state: Readonly<ExposureState>
     private min: number
     private max: number

@@ -21,7 +21,7 @@ export default class Index extends Component<Props, State> {
     render() {
         return (
             <div className="example-exposure">
-                <Exposure class="exposure" onExposure={(target: Array<number>) => this.onExposure(target)}/>
+                <Exposure className="exposure" onExposure={(target: Array<number>) => this.onExposure(target)}/>
                 <Navbar backText="返回">exposure example</Navbar>
                 <div className="example-exposure-content">
                     {
