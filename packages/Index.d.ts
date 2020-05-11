@@ -1,18 +1,14 @@
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-declare export { default as Button } from './button'
-declare export { default as Navbar } from './navbar'
-declare export { default as Icon } from './icon'
-declare export { default as Refresh } from './refresh'
 
 /*** Button */
-declare interface ButtonProps {
+export declare interface ButtonProps {
     label: string
     onClick(): void
     style: React.CSSProperties | undefined
 }
-declare interface ButtonState {}
-declare class Button extends React.Component<ButtonProps, ButtonState> {
+export declare interface ButtonState {}
+export declare class Button extends React.Component<ButtonProps, ButtonState> {
     static defaultProps: {
         label: string
         onClick(): () => {}
@@ -23,11 +19,11 @@ declare class Button extends React.Component<ButtonProps, ButtonState> {
 
 
 /*** Navbar */
-declare interface NavbarProps extends RouteComponentProps {
+export declare interface NavbarProps extends RouteComponentProps {
     backText?: string
 }
-declare interface NavbarState {}
-declare class Navbar extends React.Component<NavbarProps, NavbarState> {
+export declare interface NavbarState {}
+export declare class Navbar extends React.Component<NavbarProps, NavbarState> {
     static defaultProps: {
         backText: string
     }
@@ -35,13 +31,13 @@ declare class Navbar extends React.Component<NavbarProps, NavbarState> {
 }
 
 /*** Icon  */
-declare type IconName = 'arrow-left' | 'arrow-up' | 'arrow-right' | 'arrow-down'
-declare interface IconProps {
+export declare type IconName = 'arrow-left' | 'arrow-up' | 'arrow-right' | 'arrow-down'
+export declare interface IconProps {
   name: IconName
   color?: string
 }
-declare interface IconState {}
-declare class Icon extends React.Component<IconProps, IconState> {
+export declare interface IconState {}
+export declare class Icon extends React.Component<IconProps, IconState> {
     static defaultProps: {
         name: IconName
         color: string
@@ -50,7 +46,7 @@ declare class Icon extends React.Component<IconProps, IconState> {
 }
 
 /*** Refresh */
-declare interface RefreshOption {
+export declare interface RefreshOption {
     onDropDown: Function
     onPullUp: Function
     dropDown: boolean
@@ -64,14 +60,14 @@ declare interface RefreshOption {
     backgroundColorContent: string
     nullText: string
 }
-declare interface RefreshProps extends RefreshOption {}
-declare interface RefreshState {
+export declare interface RefreshProps extends RefreshOption {}
+export declare interface RefreshState {
     dropDownStatus: 0 | 1 | 2 | 3
     pullUpStatus: 0 | 1 | 2 | 3
     dropDownMessage: string
     hasMore: boolean
 }
-declare class Refresh extends React.Component<RefreshProps, RefreshState> {
+export declare class Refresh extends React.Component<RefreshProps, RefreshState> {
     static defaultProps: {
         onDropDown: Function
         onPullUp: Function
@@ -119,4 +115,40 @@ declare class Refresh extends React.Component<RefreshProps, RefreshState> {
     private animateMessage(): void
     public setNull(): void
     render(): JSX.Element
+}
+
+/// exposure
+export interface ExposureProps {
+    className: string
+    onExposure: Function
+}
+export interface ExposureState {}
+
+export interface OriginObject {
+    exposureid: number
+    top: number
+    height: number
+}
+export default class Exposure extends Component<ExposureProps, ExposureState> {
+    static defaultProps: {
+        className: string
+        onExposure: Function
+    }
+    readonly state: Readonly<ExposureState>
+    private min: number
+    private max: number
+    /// it's a data array of the target div's top
+    private origin: Array<OriginObject>
+    private uploadCache: Map<number, boolean>
+    private _target: Array<number>
+    constructor(props: Readonly<ExposureProps>)
+    componentDidMount()
+    private init(): void
+    private reset(): void
+    private initEvent(): void
+    private baseComputed(): void
+    private coreComputed(): void
+    public clearCache(): void
+    public clearCacheOnly(): void
+    render() : JSX.Element
 }

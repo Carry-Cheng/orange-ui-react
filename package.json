@@ -32,13 +32,21 @@
   "author": "zhoucheng <1057415350@qq.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^5.1.4",
+    "@types/webpack": "^4.41.10",
     "amfe-flexible": "^2.2.1",
     "autoprefixer": "^9.7.6",
     "orange-ui-react": "^1.1.3",
     "postcss-pxtorem": "^5.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "typescript": "~3.7.2"
   },
   "scripts": {
     "dev": "webpack-dev-server --open",
@@ -61,13 +69,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.9.4",
-    "@babel/preset-typescript": "^7.9.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-router-dom": "^5.1.4",
-    "@types/webpack": "^4.41.10",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
@@ -80,7 +81,6 @@
     "sass-loader": "^8.0.2",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.1.3",
-    "typescript": "~3.7.2",
     "url-loader": "^4.1.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",

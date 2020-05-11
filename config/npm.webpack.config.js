@@ -11,6 +11,7 @@ module.exports = {
     navbar: ['./packages/navbar'],
     icon: ['./packages/icon'],
     refresh: ['./packages/refresh'],
+    exposure: ['./packages/exposure'],
   },
   output: {
     filename: '[name].js',

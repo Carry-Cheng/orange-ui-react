@@ -21,6 +21,7 @@ export default class Index extends Component<Props, State> {
       { path: '/button', name: 'Button' },
       { path: '/icon', name: 'Icon' },
       { path: '/refresh', name: 'Refresh' },
+      { path: '/exposure', name: 'Exposure' },
     ]
   }
 
