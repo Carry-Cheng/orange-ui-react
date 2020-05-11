@@ -129,7 +129,7 @@ export interface OriginObject {
     top: number
     height: number
 }
-export default class Exposure extends Component<ExposureProps, ExposureState> {
+export class Exposure extends Component<ExposureProps, ExposureState> {
     static defaultProps: {
         className: string
         onExposure: Function
