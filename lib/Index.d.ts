@@ -130,10 +130,6 @@ export declare interface OriginObject {
     height: number
 }
 export declare class Exposure extends Component<ExposureProps, ExposureState> {
-    static defaultProps: {
-        className: string
-        onExposure: Function
-    }
     readonly state: Readonly<ExposureState>
     private min: number
     private max: number
@@ -142,7 +138,6 @@ export declare class Exposure extends Component<ExposureProps, ExposureState> {
     private uploadCache: Map<number, boolean>
     private _target: Array<number>
     constructor(props: Readonly<ExposureProps>)
-    componentDidMount()
     private init(): void
     private reset(): void
     private initEvent(): void
@@ -150,5 +145,5 @@ export declare class Exposure extends Component<ExposureProps, ExposureState> {
     private coreComputed(): void
     public clearCache(): void
     public clearCacheOnly(): void
-    render() : JSX.Element
+    render(): JSX.Element
 }

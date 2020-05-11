@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 interface Props {
-    className: string
+    class: string
     onExposure: Function
 }
 interface State {
@@ -15,10 +15,6 @@ interface OriginObject {
 }
 
 export default class Exposure extends Component<Props, State> {
-    static defaultProps = {
-        className: '',
-        onExposure: () => {}
-    }
     readonly state: Readonly<State>
     private min: number = 0
     private max: number = window.innerHeight
@@ -34,7 +30,7 @@ export default class Exposure extends Component<Props, State> {
         this.init()
     }
     private init = () => {
-        if (!this.props.className) {
+        if (!this.props.class) {
             return false
         }
         this.initEvent()
@@ -54,7 +50,7 @@ export default class Exposure extends Component<Props, State> {
     }
     private baseComputed = () => {
         this.origin = []
-        let dom = window.document.querySelectorAll<HTMLDivElement>(`.${this.props.className}`)
+        let dom = window.document.querySelectorAll<HTMLDivElement>(`.${this.props.class}`)
         dom.forEach(element => {
           let attr: Attr | null = element.attributes.getNamedItem('data-exposureid')
           this.origin.push({
