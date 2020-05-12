@@ -79,7 +79,7 @@ export default class Exposure extends Component<Props, State> {
           let attr: Attr | null = element.attributes.getNamedItem('data-exposureid')
           this.origin.push({
               exposureid: attr ? parseInt(attr.value) : 0,
-              top: element.offsetTop,
+              top: element.getBoundingClientRect().top,
               height: element.offsetHeight
           })  
         })
@@ -89,7 +89,8 @@ export default class Exposure extends Component<Props, State> {
         let child = window.document.querySelector<HTMLDivElement>(`.${this.props.className}`)
         let father = this.parentNodeHasScorll(child)
         if (!father) {
-            throw Error('not find html element with scroll.')
+            // throw Error('not find html element with scroll.')
+            return false
         }
         this.min = father.scrollTop
         this.max = this.min + window.innerHeight
