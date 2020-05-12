@@ -87,12 +87,14 @@ export default class Exposure extends Component<Props, State> {
     private coreComputed = () => {
         let target: Array<number> = []
         let child = window.document.querySelector<HTMLDivElement>(`.${this.props.className}`)
-        let father = this.parentNodeHasScorll(child)
-        if (!father) {
-            // throw Error('not find html element with scroll.')
+        if (!child) {
             return false
         }
-        this.min = father.scrollTop
+        let father = this.parentNodeHasScorll(child)
+        this.min = 0
+        if (father) {
+            this.min = father.scrollTop
+        }
         this.max = this.min + window.innerHeight
         this.origin.forEach(element => {
             // strict mode, the box in visual area
