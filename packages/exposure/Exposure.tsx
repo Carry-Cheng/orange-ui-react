@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 interface Props {
     className: string
     onExposure: Function
+    immediate?: boolean
+    delay?: number
 }
 interface State {
     
@@ -15,6 +17,10 @@ interface OriginObject {
 }
 
 export default class Exposure extends Component<Props, State> {
+    static defaultProps = {
+        immediate: false,
+        delay: 1000
+    }
     readonly state: Readonly<State>
     private min: number = 0
     private max: number = window.innerHeight
@@ -43,10 +49,12 @@ export default class Exposure extends Component<Props, State> {
         document.addEventListener('touchend', () => {
             this.reset()
         }, {passive: true})
-        let timeout: number = window.setTimeout(() => {
-            window.clearTimeout(timeout)
-            this.reset()
-        }, 20)
+        if (this.props.immediate) {
+            let timeout: number = window.setTimeout(() => {
+                window.clearTimeout(timeout)
+                this.reset()
+            }, this.props.delay)
+        }
     }
     private parentNodeHasScorll(child: HTMLElement | null): null | HTMLElement | undefined {
         if (!child) {

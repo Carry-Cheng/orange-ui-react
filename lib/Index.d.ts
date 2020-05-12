@@ -121,6 +121,8 @@ export declare class Refresh extends React.Component<RefreshProps, RefreshState>
 export declare interface ExposureProps {
     className: string
     onExposure: Function
+    immediate?: boolean
+    delay?: number
 }
 export declare interface ExposureState {}
 
@@ -130,6 +132,10 @@ export declare interface OriginObject {
     height: number
 }
 export declare class Exposure extends React.Component<ExposureProps, ExposureState> {
+    static defaultProps: {
+        immediate: boolean
+        delay: number
+    }
     readonly state: Readonly<ExposureState>
     private min: number
     private max: number
