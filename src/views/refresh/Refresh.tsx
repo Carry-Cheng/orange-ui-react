@@ -47,6 +47,12 @@ export default class RefreshIndex extends Component<Props, State> {
     }, 200)
   }
 
+  reset = () => {
+    if (this.refresh.current) {
+      this.refresh.current.reset()
+    }
+  }
+
   render() {
     return (
       <div className="example-refresh">
@@ -58,6 +64,7 @@ export default class RefreshIndex extends Component<Props, State> {
             <Button label="下拉关" onClick={() => this.setState({dropDown: false})}></Button>
             <Button label="上拉开" onClick={() => this.setState({pullUp: true})}></Button>
             <Button label="上拉关" onClick={() => this.setState({pullUp: false})}></Button>
+            <Button label="重置" onClick={() => this.reset()}></Button>
           </div>
           <Refresh
             ref={this.refresh}

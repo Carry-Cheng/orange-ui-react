@@ -114,6 +114,7 @@ export declare class Refresh extends React.Component<RefreshProps, RefreshState>
     public setMessage(text: string): void
     private animateMessage(): void
     public setNull(): void
+    public reset(): void
     render(): JSX.Element
 }
 
@@ -129,6 +130,8 @@ export declare interface ExposureState {}
 export declare interface OriginObject {
     exposureid: number
     top: number
+    left: number
+    width: number
     height: number
 }
 export declare class Exposure extends React.Component<ExposureProps, ExposureState> {
@@ -139,6 +142,8 @@ export declare class Exposure extends React.Component<ExposureProps, ExposureSta
     readonly state: Readonly<ExposureState>
     private min: number
     private max: number
+    private minLeft: number
+    private maxLeft: number
     /// it's a data array of the target div's top
     private origin: Array<OriginObject>
     private uploadCache: Map<number, boolean>

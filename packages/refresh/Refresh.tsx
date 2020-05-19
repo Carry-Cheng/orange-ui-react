@@ -276,6 +276,15 @@ export default class Refresh extends Component<Props, State> {
     this.setState({pullUpStatus: 3, hasMore: false})
   }
 
+  public reset() {
+    this.setState({
+      dropDownStatus: 0,
+      pullUpStatus: 0,
+      dropDownMessage: '',
+      hasMore: true
+    })
+  }
+
   render() {
     return (
       <div ref={this.refRefresh} className="orange-refresh" style={{

@@ -13,6 +13,8 @@ interface State {
 interface OriginObject {
     exposureid: number
     top: number
+    left: number
+    width: number
     height: number
 }
 
@@ -24,6 +26,8 @@ export default class Exposure extends Component<Props, State> {
     readonly state: Readonly<State>
     private min: number = 0
     private max: number = window.innerHeight
+    private minLeft: number = 0
+    private maxLeft: number = window.innerWidth
     /// it's a data array of the target div's top
     private origin: Array<OriginObject> = []
     private uploadCache: Map<number, boolean> = new Map<number, boolean>()
@@ -46,7 +50,7 @@ export default class Exposure extends Component<Props, State> {
         this.coreComputed()
     }
     private initEvent = () => {
-        document.addEventListener('touchend', () => {
+        document.addEventListener('touchend', (event: TouchEvent) => {
             this.reset()
         }, {passive: true})
         if (this.props.immediate) {
@@ -80,6 +84,8 @@ export default class Exposure extends Component<Props, State> {
           this.origin.push({
               exposureid: attr ? parseInt(attr.value) : 0,
               top: element.getBoundingClientRect().top,
+              left: element.getBoundingClientRect().left,
+              width: element.offsetWidth,
               height: element.offsetHeight
           })  
         })
@@ -92,13 +98,17 @@ export default class Exposure extends Component<Props, State> {
         }
         let father = this.parentNodeHasScorll(child)
         this.min = 0
+        this.minLeft = 0
         if (father) {
             this.min = father.scrollTop
+            this.minLeft = father.scrollLeft
         }
         this.max = this.min + window.innerHeight
+        this.maxLeft = this.minLeft + window.innerWidth
         this.origin.forEach(element => {
-            // strict mode, the box in visual area
-            if (element.top > this.min && (element.top + element.height) < this.max) {
+            /// strict mode, the box in visual area
+            /// vertical and horizontal
+            if ((element.top > this.min && (element.top + element.height) < this.max) && (element.left > this.minLeft && (element.left + element.width) < this.maxLeft)) {
                 if (!this.uploadCache.get(element.exposureid)) {
                     target.push(element.exposureid)
                 }
