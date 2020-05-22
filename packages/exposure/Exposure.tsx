@@ -45,7 +45,7 @@ export default class Exposure extends Component<Props, State> {
         }
         this.initEvent()
     }
-    private reset = () => {
+    public reset = () => {
         this.baseComputed()
         this.coreComputed()
     }
@@ -105,14 +105,14 @@ export default class Exposure extends Component<Props, State> {
         }
         this.max = this.min + window.innerHeight
         this.maxLeft = this.minLeft + window.innerWidth
-        this.origin.forEach(element => {
+        this.origin.forEach((element, index) => {
             /// strict mode, the box in visual area
             /// vertical and horizontal
             if ((element.top > this.min && (element.top + element.height) < this.max) && (element.left > this.minLeft && (element.left + element.width) < this.maxLeft)) {
-                if (!this.uploadCache.get(element.exposureid)) {
+                if (!this.uploadCache.get(index)) {
                     target.push(element.exposureid)
                 }
-                this.uploadCache.set(element.exposureid, true)
+                this.uploadCache.set(index, true)
             }
         })
         if (JSON.stringify(target) !== JSON.stringify(this._target)) {
